@@ -151,6 +151,8 @@ export const EVENTOS_GARAJE: Evento[] = [
     id: 'garaje-nombre',
     titulo: 'Falta el nombre',
     categoria: 'banda',
+    inspiracion:
+      'Los nombres del rock salieron de un manual de máquinas de coser (Pink Floyd fue Floyd Council y Pink Anderson, dos bluesmen), de una novela sobre insectos escrita por un adicto, de un desodorante de ambientes, de un aviso clasificado y de un chiste sobre un dirigible de plomo que se cae. Todos sonaban espantosos el primer día.',
     texto:
       'No pueden seguir siendo "la banda". Hay que decidir, y cada uno trajo una lista.',
     requiere: { tieneBanda: true, sinFlags: ['nombreElegido'] },
@@ -193,6 +195,31 @@ export const EVENTOS_GARAJE: Evento[] = [
               'Sale una frase absurda que suena perfecta. Van a pasar treinta años explicando en entrevistas que no significa nada.',
             efectos: {
               stats: { credibilidad: 8, quimica: 4, inspiracion: 4 },
+              flags: { nombreElegido: 1 },
+            },
+          },
+        ],
+      },
+      {
+        id: 'impronunciable',
+        texto: 'Elegir el más impronunciable e imposible de escribir',
+        riesgo: 'dudoso',
+        resultados: [
+          {
+            peso: 2,
+            texto:
+              'Eligen un nombre larguísimo, con una palabra que nadie sabe deletrear y un signo raro en el medio. El del bar los anota mal en el afiche del primer show y los va a anotar mal durante cuatro años.\n\nY sin embargo funciona: es imposible confundirlos con nadie y, cuando alguien finalmente lo aprende, ya no se lo olvida nunca. Los primeros mil fans se sienten parte de una secta chiquita nada más que por saber escribirlo.',
+            efectos: {
+              stats: { credibilidad: 14, inspiracion: 8, fama: -6, quimica: 6 },
+              flags: { nombreElegido: 1, escenaAmiga: 1 },
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'Eligen un nombre impronunciable y pasan dos años corrigiendo a todo el mundo, incluidos los que quieren contratarlos.\n\nUn productor les dice de frente que no los llama porque no se acuerda cómo se llaman. Lo terminan acortando a las dos primeras sílabas, que es lo que la gente les decía desde el principio.',
+            efectos: {
+              stats: { fama: -10, credibilidad: 6, quimica: -4, cordura: -4 },
               flags: { nombreElegido: 1 },
             },
           },

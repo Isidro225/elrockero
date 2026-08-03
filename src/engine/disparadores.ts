@@ -51,6 +51,18 @@ export const DISPARADORES: Disparador[] = [
     prioridad: 88,
   },
 
+  // El hormigueo en la mano: el cuerpo avisa una vez antes de romperse.
+  {
+    evento: 'biz-acv',
+    requiere: {
+      stats: { salud: { max: 40 }, fama: { min: 48 } },
+      edadMin: 36,
+      sinFlags: ['enfermo'],
+    },
+    probabilidad: 0.35,
+    prioridad: 86,
+  },
+
   // El noveno piso: hace falta fama, algo encima y ganas de romper todo.
   {
     evento: 'mito-pileta',

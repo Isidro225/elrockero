@@ -84,6 +84,13 @@ export function PantallaEvento({ partida, onElegir, onContinuar }: Props) {
 
           {titular ? <p className="titular-prensa">{interpolar(titular, partida)}</p> : null}
 
+          {evento.inspiracion ? (
+            <div className="nota-inspiracion" style={{ marginTop: 18 }}>
+              <strong>Pasó de verdad: </strong>
+              {evento.inspiracion}
+            </div>
+          ) : null}
+
           <div style={{ marginTop: 22 }}>
             <button className="boton boton-principal" onClick={onContinuar} autoFocus>
               {actual < total ? 'Seguir' : 'Cerrar el año'}

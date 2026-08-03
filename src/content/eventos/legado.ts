@@ -314,6 +314,8 @@ export const EVENTOS_LEGADO: Evento[] = [
     id: 'leg-catalogo',
     titulo: 'Venden tu catálogo',
     categoria: 'plata',
+    inspiracion:
+      'En 1997, David Bowie emitió bonos respaldados por sus regalías futuras: recaudó 55 millones de dólares por adelantado sin vender una sola canción. Los "Bowie Bonds" se compraron enteros en una hora. Michael Jackson, en cambio, compró el catálogo de los Beatles en 1985 por debajo de las narices de Paul McCartney, que le había explicado él mismo, meses antes, lo buen negocio que era comprar catálogos ajenos.',
     texto:
       'Un fondo de inversión ofrece comprar los derechos de todas tus canciones. Es una cifra que resuelve tres generaciones. Ellos decidirían para siempre dónde suena cada tema.',
     requiere: { edadMin: 48, discosMin: 4, stats: { fama: { min: 45 } }, sinFlags: ['vendioCatalogo'] },
@@ -347,6 +349,34 @@ export const EVENTOS_LEGADO: Evento[] = [
               stats: { cordura: 10, credibilidad: 4 },
               dinero: 450000,
               flags: { vendioCatalogo: 1, ordenado: 1 },
+            },
+          },
+        ],
+      },
+      {
+        id: 'bonos',
+        texto: 'No vender nada y emitir bonos con tus regalías futuras',
+        riesgo: 'riesgoso',
+        resultados: [
+          {
+            peso: 2,
+            texto:
+              'Un pibe de treinta años te explica algo que suena a delirio: en vez de vender las canciones, vendés lo que las canciones van a facturar en los próximos quince años, en forma de bonos, y las canciones siguen siendo tuyas.\n\nSe agotan en una hora. Cobrás por adelantado una fortuna sin ceder un solo tema y toda la industria pasa dos años tratando de entender qué acabás de hacer.\n\nA los quince años, los bonos vencen y las canciones vuelven a vos, enteras.',
+            efectos: {
+              stats: { credibilidad: 14, cordura: 6, fama: 8, talento: 2 },
+              dinero: 700000,
+              flags: { duenioDeLoSuyo: 1, ordenado: 1, negociador: 1 },
+              titular: '"Se vendió a sí mismo en la bolsa": la maniobra financiera de {apodo}',
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'Emitís los bonos justo antes de que se caiga el negocio del disco. La facturación real termina siendo la mitad de la proyectada y los tenedores cobran igual, porque para eso están los abogados de ellos.\n\nQuince años pagando una deuda con las regalías de canciones que escribiste a los veinticinco. Seguís siendo el dueño, eso sí. Dueño de algo hipotecado.',
+            efectos: {
+              stats: { cordura: -14, credibilidad: 6, fama: 4 },
+              dinero: 250000,
+              flags: { duenioDeLoSuyo: 1, deuda: 1 },
             },
           },
         ],
@@ -682,6 +712,8 @@ export const EVENTOS_LEGADO: Evento[] = [
     id: 'leg-ultimo-show',
     titulo: '¿Es el último?',
     categoria: 'carrera',
+    inspiracion:
+      'En 2009, Luis Alberto Spinetta juntó en un estadio a los músicos de todas sus bandas —Almendra, Pescado Rabioso, Invisible, Spinetta Jade— para un show de cinco horas y media. Se murió dos años y medio después. The Band hizo lo mismo en 1976 con El último vals, y Robbie Robertson y Levon Helm no volvieron a hablarse nunca.',
     texto:
       'El cuerpo no da. La voz no da. La ganas van y vienen. Alguien te pregunta, en una entrevista, cuándo vas a parar, y por primera vez no tenés una respuesta ingeniosa.',
     requiere: { edadMin: 58, sinFlags: ['anuncioRetiro'] },
@@ -726,6 +758,34 @@ export const EVENTOS_LEGADO: Evento[] = [
             efectos: {
               stats: { salud: -26, fama: -10, cordura: -12 },
               flags: { anuncioRetiro: 1, retiroForzado: 1 },
+            },
+          },
+        ],
+      },
+      {
+        id: 'bandas-eternas',
+        texto: 'Un solo show de cinco horas con todos los músicos que pasaron por tu vida',
+        riesgo: 'riesgoso',
+        resultados: [
+          {
+            peso: 3,
+            texto:
+              'Llamás uno por uno a los treinta y tantos músicos que tocaron con vos en cuarenta años, incluidos los dos con los que no te hablás y el que te hizo juicio. Vienen todos.\n\nSon cinco horas y media. Se arman y se desarman siete formaciones distintas arriba del escenario. Hay tipos de sesenta años abrazados atrás de los amplificadores, llorando como nenes, que no se veían desde 1979.\n\nNo lo volvés a hacer nunca. No hace falta.',
+            efectos: {
+              stats: { fama: 26, credibilidad: 30, quimica: 26, cordura: 20, salud: -12 },
+              dinero: 120000,
+              flags: { anuncioRetiro: 1, despedidaDigna: 1, momentoHistorico: 1, showMitico: 1 },
+              titular: '"Cinco horas y media": la despedida de {apodo} con todos sus músicos',
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'Los llamás a todos y no vienen todos. Faltan tres y son justo los tres que importaban.\n\nEl show dura cinco horas igual y es hermoso, y hay un hueco en el medio del escenario que ve todo el mundo y del que no habla nadie. Uno de los tres se muere al año siguiente.',
+            efectos: {
+              stats: { fama: 20, credibilidad: 22, cordura: -8, salud: -12, quimica: 8 },
+              dinero: 90000,
+              flags: { anuncioRetiro: 1, despedidaDigna: 1, deudaAfectiva: 1 },
             },
           },
         ],

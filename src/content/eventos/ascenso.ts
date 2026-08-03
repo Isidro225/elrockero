@@ -433,8 +433,10 @@ export const EVENTOS_ASCENSO: Evento[] = [
     id: 'ascenso-television',
     titulo: 'El programa de la tarde',
     categoria: 'prensa',
+    inspiracion:
+      'Keith Moon cargó su bombo con explosivos para el cierre del programa de los hermanos Smothers, en 1967: la explosión fue mucho mayor de lo previsto, le clavó un pedazo de platillo en el brazo y contribuyó a la sordera de Pete Townshend. Nirvana, obligada a hacer playback en Top of the Pops, tocó todo mal a propósito y Kurt Cobain cantó con voz de crooner.',
     texto:
-      'Los invitan al programa más visto del país. El conductor es un tipo que se burla de los músicos y tiene ocho millones de espectadores.',
+      'Los invitan al programa más visto del país. El conductor es un tipo que se burla de los músicos y tiene ocho millones de espectadores. Además, hay que hacer playback: la orden es que ni siquiera enchufen los equipos.',
     requiere: { stats: { fama: { min: 45 } } },
     peso: 3,
     opciones: [
@@ -470,6 +472,35 @@ export const EVENTOS_ASCENSO: Evento[] = [
             texto:
               'Le contestás mal, sin gracia, y quedás como un maleducado sin argumentos. La clase de video que te van a mostrar en cada entrevista futura.',
             efectos: { stats: { fama: 10, credibilidad: -12, cordura: -10 }, flags: { enemigoTV: 1 } },
+          },
+        ],
+      },
+      {
+        id: 'sabotear',
+        texto: 'Sabotear el playback: cantar con voz de otro y cargar el bombo con pirotecnia',
+        riesgo: 'riesgoso',
+        resultados: [
+          {
+            peso: 2,
+            texto:
+              'Hacen el peor playback de la historia de la televisión: cantás una octava más grave, con voz de crooner de casino, el bajista toca al revés y en el último acorde explota el bombo.\n\nEl estudio se llena de humo, el conductor grita, hay una señora del público con la peluca chamuscada. Cortan la transmisión. Es el video más visto de tu carrera y ninguna otra banda vuelve a hacer playback en ese canal.',
+            efectos: {
+              stats: { fama: 26, credibilidad: 24, cordura: -6, salud: -6 },
+              dinero: -8000,
+              flags: { enemigoTV: 1, momentoHistorico: 1, momentoViral: 1 },
+              titular: '"Explotó el estudio": el escándalo de {banda} en vivo y en directo',
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'La carga de pirotecnia es bastante más grande de lo que dijo el tipo que la vendió. La explosión te vuela un pedazo de platillo contra el brazo y deja al guitarrista con un zumbido en el oído derecho que no se le va nunca más.\n\nEl video es glorioso. La sordera es para siempre.',
+            efectos: {
+              stats: { fama: 22, credibilidad: 12, salud: -20, quimica: -10 },
+              dinero: -20000,
+              flags: { enemigoTV: 1, momentoViral: 1, danioNervioso: 1 },
+              titular: '"Casi se prende fuego el estudio": la banda que hizo estallar el programa',
+            },
           },
         ],
       },

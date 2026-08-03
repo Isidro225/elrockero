@@ -191,8 +191,10 @@ export const FINALES: Final[] = [
     id: 'el-jubilado',
     titulo: 'La casa con jardín',
     tono: 'agridulce',
-    prioridad: 26,
-    requiere: { edadMin: 62 },
+    // Morirse viejo en la cama le gana a los finales genéricos: a esa edad ya
+    // no sos "el que no llegó", sos el que llegó hasta el final.
+    prioridad: 35,
+    requiere: { edadMin: 66 },
     texto:
       'Te moriste viejo, en tu cama, rodeado de gente que te quería, que es exactamente lo que jurabas a los veinte que no querías.\n\nLos últimos veinte años fueron tranquilos. Tocabas los sábados en un bar del pueblo con tres tipos que no sabían muy bien quién habías sido. Cobrabas la cena. Era la mejor banda en la que estuviste desde el garaje.\n\nEn el velorio hubo cuarenta personas y ningún periodista. Al día siguiente salió una nota de media página en un diario, con una foto de los setenta en la que estás irreconocible.\n\nEsa misma semana, en algún lugar del mundo, tres chicos de dieciséis años estaban aprendiendo a tocar un tema tuyo en un garaje sin saber que te habías muerto, y eso es tan cerca de la eternidad como llega cualquiera.',
     epitafio: 'La mejor banda en la que estuvo fue la de los sábados en el bar del pueblo.',
@@ -279,7 +281,9 @@ export const FINALES: Final[] = [
     id: 'el-olvidado',
     titulo: 'El asterisco',
     tono: 'patetico',
-    prioridad: 34,
+    // Le gana a los otros finales de carrera chica, pero no a una causa de
+    // muerte concreta: si te mató algo, ese algo manda.
+    prioridad: 42,
     requiere: { stats: { fama: { max: 24 } }, edadMin: 45 },
     texto:
       'Estuviste ahí. Eso es todo lo que se puede decir con certeza.\n\nHubo un momento, alrededor de tus veinticuatro años, en que todo estaba por pasar. Había interés, había una banda buena y había dos o tres canciones que servían. Y después algo no se dio, y no fue una sola cosa: fueron catorce cosas chiquitas, ninguna de las cuales fue enteramente culpa tuya y todas las cuales podrías haber manejado mejor.\n\nSeguiste tocando doce años más, cada vez con menos gente. Después conseguiste un trabajo estable y guardaste el equipo en un placard, no lo vendiste, que es distinto.\n\nApareces en un libro sobre la escena de tu ciudad, en una enumeración, entre comas, sin adjetivo.\n\nUna vez, en un bar, escuchaste a dos pibes hablar de una banda vieja que les habían pasado, y era la tuya, y no dijiste nada.',
@@ -334,6 +338,221 @@ export const FINALES: Final[] = [
     texto:
       'Nunca grabaste un disco. Nunca tocaste para más de doscientas personas. Ensayaste dos veces por semana durante veinte años.\n\nLa banda nunca se separó formalmente: simplemente hubo un martes en que uno no pudo, y después otro martes, y después pasaron ocho meses.\n\nTenés setenta canciones grabadas en un grabador de cuatro canales. Son mejores de lo que te parecen. Nadie las escuchó nunca completas excepto tres personas y una de ellas todavía te dice, cada vez que te ve, que tendrías que haber hecho algo con eso.\n\nNo te arruinaste el cuerpo, no perdiste a nadie y no firmaste nada que te arrepintieras de firmar. Tuviste una vida normal con un secreto adentro.\n\nUn nieto va a encontrar esas cintas. Va a ser el momento más importante de su vida y vos no vas a estar para verlo.',
     epitafio: 'Setenta canciones en un grabador de cuatro canales, y son mejores de lo que le parecían.',
+  },
+
+  // -------------------------------------------------------------------------
+  // Finales bizarros forzados por eventos
+  // -------------------------------------------------------------------------
+  {
+    id: 'la-descarga',
+    titulo: 'La descarga',
+    tono: 'tragico',
+    prioridad: 100,
+    soloForzado: true,
+    inspiracion:
+      'Les Harvey, de Stone the Crows, murió en 1972 al tocar un micrófono sin descarga a tierra en pleno show. Keith Relf, de los Yardbirds, murió en 1976 tocando una guitarra mal conectada en el sótano de su casa.',
+    texto:
+      'Fue en el cuarto tema, cuando te acercaste al micrófono con la guitarra colgada y las manos mojadas.\n\nEl local no tenía descarga a tierra. Lo sabían el dueño, el sonidista y el electricista que había pasado hace dos años y había dicho que eso había que rehacerlo entero. Costaba menos de lo que salió el equipo de luces.\n\nHubo tres mil personas que vieron algo raro y tardaron casi un minuto en entender que no era parte del show. Hay una filmación casera que circuló durante años en copias de copias y que nadie de tu familia vio nunca.\n\nEl juicio duró seis años y terminó en una multa que el dueño pagó en cuotas. El local sigue abierto. Cambió de nombre dos veces.\n\nTe mató una instalación eléctrica. Es la forma más barata que tiene esta industria de matar a alguien y es la única que no aparece en ninguna película.',
+    epitafio: 'Lo mató una instalación eléctrica que costaba menos que el equipo de luces.',
+  },
+  {
+    id: 'no-esta-cargada',
+    titulo: 'No está cargada',
+    tono: 'tragico',
+    prioridad: 100,
+    soloForzado: true,
+    inspiracion:
+      'Terry Kath, guitarrista de Chicago, murió en 1978 jugando con un arma que creía descargada, en la casa de un amigo, después de una fiesta. Sus últimas palabras fueron: "no te preocupes, no está cargada".',
+    texto:
+      'Lo dijiste vos. Fue lo último que dijiste y lo dijiste riéndote, para tranquilizar al que estaba a tres metros y te pedía por favor que la dejaras.\n\nHabías sacado el cargador. Lo mostraste, incluso. Lo que no sabías, porque no sabías nada de armas, es que eso no alcanza.\n\nLos que estaban ahí no llamaron a la ambulancia enseguida porque siguieron un rato pensando que era un chiste tuyo, porque hacías chistes así todo el tiempo, porque era eso lo que hacías.\n\nEn los años siguientes, cada nota sobre vos empieza por el final. Nadie escribe sobre lo que tocabas, y lo que tocabas era mejor que lo de casi todos tus contemporáneos, y hay tres guitarristas enormes que lo dicen en cada entrevista y no sirve de nada.\n\nQuedaste convertido en una advertencia. Ni siquiera en una buena.',
+    epitafio: 'Sus últimas palabras fueron para tranquilizar al que le pedía que la dejara.',
+  },
+  {
+    id: 'el-rio',
+    titulo: 'El río',
+    tono: 'misterioso',
+    prioridad: 100,
+    soloForzado: true,
+    inspiracion:
+      'Jeff Buckley entró vestido al río Wolf, en Memphis, una noche de 1997, cantando. Dennis Wilson, de los Beach Boys, murió en 1983 buceando para recuperar cosas que él mismo había tirado al agua años antes.',
+    texto:
+      'Entraste vestido, con las botas puestas, cantando un tema que no era tuyo.\n\nNo estabas mal esa noche. Estabas mejor que en meses: habías ensayado bien, habías comido, te habías reído. Eso es lo que más le cuesta aceptar a todo el mundo después, porque estropea la historia que a la gente le gusta contar.\n\nEl que estaba en la orilla se dio vuelta treinta segundos para mover una radio. Cuando volvió a mirar, el agua estaba igual que siempre.\n\nTardaron seis días en encontrarte. En esos seis días se escribió una cantidad de poesía barata que hubiera sido mejor no escribir.\n\nDejaste un disco terminado y otro a medias. El que estaba a medias se editó igual, con las voces guía, y hay gente que lo prefiere. Vos lo hubieras quemado.',
+    epitafio: 'Estaba mejor que en meses, y eso es lo que arruina la historia que a todos les gusta contar.',
+  },
+  {
+    id: 'la-litera',
+    titulo: 'El as de espadas',
+    tono: 'tragico',
+    prioridad: 100,
+    soloForzado: true,
+    inspiracion:
+      'Cliff Burton, de Metallica, ganó la mejor litera del micro sacando el as de espadas en un sorteo de cartas. El micro volcó en una ruta helada de Suecia esa misma madrugada, en 1986.',
+    texto:
+      'Sacaste el as de espadas y te reíste y dijiste que era tuya, y el otro se fue a dormir adelante puteando de mentira.\n\nEl micro volcó a las siete de la mañana en una ruta helada. El chofer dijo que había hielo. Los peritos dijeron que no había hielo. Nadie que estuviera despierto adentro pudo aportar nada porque nadie estaba despierto.\n\nLos que quedaron pasaron los días siguientes en un pueblo que no sabían pronunciar, sin ropa, tomando en el lobby de un hotel, llamando por cobrar a sus casas.\n\nLa banda siguió. Eso los persiguió a los tres durante cuarenta años: la decisión de seguir, tomada a los once días, borrachos, porque no se les ocurrió otra manera de no volverse locos.\n\nCada vez que alguien saca una carta de un mazo en una gira, en cualquier banda del mundo, hay alguien más viejo que dice que no.',
+    epitafio: 'Ganó la mejor litera del micro en un sorteo de cartas.',
+  },
+  {
+    id: 'el-coma',
+    titulo: 'Cuatro años',
+    tono: 'tragico',
+    prioridad: 100,
+    soloForzado: true,
+    inspiracion:
+      'Gustavo Cerati sufrió un ACV al bajar del escenario en Caracas, en 2010, y estuvo cuatro años en coma. La frase con la que había cerrado la despedida de su banda quedó escrita en las paredes de medio continente.',
+    texto:
+      'Terminaste el show. Saludaste. Bajaste los seis escalones del costado del escenario y en el cuarto se te apagó la mitad del cuerpo.\n\nEl show había estado bien. No fue el mejor de la gira y tampoco fue el peor, y eso lo tiene grabado toda la gente que estuvo ahí, que se pasó los años siguientes buscando en su memoria una señal que no existió.\n\nEstuviste cuatro años. Cuatro años de partes médicos, de gente cantando en la vereda de la clínica, de rumores de mejoría cada tres meses, de una familia contestando siempre lo mismo con una paciencia que nadie les agradeció lo suficiente.\n\nEn esos cuatro años se te siguió escuchando más que cuando estabas despierto. Una frase tuya, dicha al pasar en un escenario años antes, apareció pintada en paredes de ciudades que nunca visitaste.\n\nEl último disco que sacaste habla de esto sin saberlo. Todos los discos hablan de esto sin saberlo, en realidad; el tuyo tuvo la mala educación de ser explícito.',
+    epitafio: 'Bajó seis escalones y en el cuarto se le apagó la mitad del cuerpo.',
+  },
+
+  // -------------------------------------------------------------------------
+  // Finales bizarros por estado
+  // -------------------------------------------------------------------------
+  {
+    id: 'el-departamento-prestado',
+    titulo: 'El departamento prestado',
+    tono: 'tragico',
+    prioridad: 89,
+    requiere: {
+      algunaFlag: ['dependenciaMedica', 'medicoGeneroso', 'recetaFacil'],
+      stats: { adiccion: { min: 42 } },
+      edadMax: 52,
+    },
+    inspiracion:
+      'Keith Moon murió en 1978 por una sobredosis de la medicación que le habían recetado para dejar de tomar, en un departamento prestado donde cuatro años antes había muerto Cass Elliot.',
+    texto:
+      'Te mató el remedio para dejar la otra cosa.\n\nEran pastillas legales, recetadas por un médico con matrícula, para que pudieras dejar lo que venías tomando hace quince años. La indicación era una por día. Vos entendiste que si una servía, treinta y dos servían más, porque esa fue tu forma de entender el mundo desde los diecinueve años y nadie te la corrigió nunca.\n\nEl departamento era prestado. En esa misma habitación, cuatro años antes, se había muerto otra persona de la que también dijeron que era la más divertida del ambiente. El dueño no lo volvió a alquilar.\n\nHabías estado bien esa noche. Comiste, viste una película, dijiste que al día siguiente arrancabas en serio.\n\nEn el velorio, todos los que hablaron contaron una anécdota tuya y todas eran graciosas y todas, escuchadas de a una, eran síntomas.',
+    epitafio: 'Lo mató el remedio para dejar la otra cosa.',
+  },
+  {
+    id: 'el-rey',
+    titulo: 'El rey',
+    tono: 'patetico',
+    prioridad: 86,
+    requiere: {
+      stats: { fama: { min: 76 }, salud: { max: 26 } },
+      algunaFlag: ['dependenciaMedica', 'entornoParasito', 'medicoGeneroso', 'recetaFacil'],
+      edadMin: 36,
+    },
+    inspiracion:
+      'Elvis Presley murió a los 42 con catorce sustancias recetadas en el cuerpo, rodeado de empleados que cobraban de él. Nunca giró fuera de su país porque su manager era un inmigrante sin papeles que no podía salir.',
+    texto:
+      'Te moriste en la casa más grande que compraste con la plata de tu propia leyenda, rodeado de once personas que cobraban un sueldo tuyo.\n\nEn el cuerpo te encontraron catorce sustancias distintas, todas recetadas, todas legales, todas firmadas por el mismo médico que después dijo que había hecho lo que había podido. En un sentido burocrático, es verdad.\n\nHacía años que no salías de tu país. Se lo achacaron a tu miedo a volar, a tu carácter, a tu nostalgia. La razón verdadera era que el que manejaba tu carrera no podía cruzar una frontera sin que le pidieran papeles que no tenía, y por eso el mundo entero se quedó sin verte y vos te quedaste sin ver el mundo entero.\n\nA la semana de tu muerte, tu disco vendía más que en los diez años anteriores juntos. A los cinco años había tipos disfrazados de vos cantando en casamientos. A los veinte había gente que juraba haberte visto vivo en un supermercado, y esa gente no estaba loca: estaban haciendo lo único que se podía hacer con lo que quedó de vos.\n\nCantabas mejor a los cuarenta que a los veinte. No hay una sola nota que empiece por ahí.',
+    epitafio: 'Se murió rodeado de once personas que cobraban un sueldo suyo.',
+  },
+  {
+    id: 'el-desierto',
+    titulo: 'El desierto',
+    tono: 'misterioso',
+    // Prioridad media a propósito: el pacto colorea el funeral, pero no le gana
+    // a los finales que definen una carrera entera.
+    prioridad: 67,
+    requiere: { flags: ['pactoFunerario'], edadMax: 66, chance: 0.6 },
+    inspiracion:
+      'Gram Parsons murió en 1973 en un motel de Joshua Tree. Su road manager robó el ataúd del aeropuerto, lo llevó al desierto y lo prendió fuego, cumpliendo una promesa que se habían hecho borrachos.',
+    texto:
+      'La promesa era vieja y estaba hecha de madrugada, con un vaso en la mano, y como todas las promesas de ese tipo era una manera de decir otra cosa.\n\nTu familia organizó un velorio a dos mil kilómetros, con un cura y con gente que no te veía desde los diecisiete años. Nunca les preguntaron a los que te conocían.\n\nAsí que uno de ellos consiguió una camioneta prestada, se puso una camisa que parecía formal, entró al depósito del aeropuerto, firmó un papel con un nombre inventado y se llevó el cajón.\n\nManejaron toda la noche hasta el desierto, hasta el lugar exacto donde vos habías dicho, y cumplieron. Los detuvieron a los dos días. Como no existía ninguna ley que dijera qué se hace con alguien que roba un cadáver para hacerle un favor, los multaron por la camioneta.\n\nEs el funeral más extraño que se le hizo a un músico y es el único que se hizo exactamente como el músico había pedido. En algún lugar de esa desproporción está todo lo que hay que saber sobre esta vida que elegiste.',
+    epitafio: 'Le robaron el cajón al aeropuerto para cumplirle una promesa de borrachos.',
+  },
+  {
+    id: 'el-tutor',
+    titulo: 'El médico que se mudó a tu casa',
+    tono: 'patetico',
+    prioridad: 87,
+    requiere: { flags: ['tutorMedico'] },
+    inspiracion:
+      'Eugene Landy controló durante años la vida de Brian Wilson: la medicación, la comida, las visitas, los horarios y hasta los créditos de sus canciones. Hizo falta una causa judicial de la familia para sacarlo.',
+    texto:
+      'Al principio te salvó la vida. Eso es lo que hace tan difícil de contar el resto.\n\nCuando te encontró no salías de la cama ni te bañabas hacía meses. En un año te tenía caminando, comiendo y grabando. Cobró por eso una cifra desmedida y la cobró con razón.\n\nDespués se mudó a tu casa. Después decidió quién podía verte. Después empezó a firmar canciones tuyas como coautor, y a manejarte los contratos, y a atenderte el teléfono, y a decidir qué pastillas y cuántas.\n\nDurante siete años, cada palabra que dijiste en público estuvo escrita por él. Hay entrevistas de esa época donde se te ve mirando a un costado, fuera de cámara, antes de contestar cualquier cosa, incluso qué comiste.\n\nTu familia tuvo que ir a la justicia para sacarlo. Ganaron. Le retiraron la matrícula. Vos tardaste otros diez años en poder tocar sin mirar a un costado.\n\nLo peor no fue el que te encerró. Lo peor fue toda la gente que, en esos siete años, vio perfectamente lo que estaba pasando y decidió que no era asunto suyo.',
+    epitafio: 'Toda esa gente lo vio perfectamente y decidió que no era asunto suyo.',
+  },
+  {
+    id: 'la-boveda',
+    titulo: 'La bóveda',
+    tono: 'misterioso',
+    prioridad: 71,
+    requiere: { flags: ['boveda'], discosMin: 3 },
+    inspiracion:
+      'Prince guardó miles de canciones inéditas en una bóveda climatizada debajo de su estudio. Cuando murió sin dejar testamento, hubo que llamar a un cerrajero para abrirla.',
+    texto:
+      'Grabaste todos los días de tu vida adulta. Todos. Incluidos los días en que estabas de gira, enfermo, peleado o de duelo.\n\nEditaste una fracción ridícula de eso. El resto lo bajaste a cinta, lo etiquetaste con tu letra y lo guardaste en una bóveda climatizada, con puerta de acero, debajo del estudio.\n\nNo dejaste testamento. No dejaste la combinación. No dejaste una lista de qué se podía editar y qué no, cosa que te preguntaron por lo menos veinte veces y que siempre contestaste con una sonrisa.\n\nA los cuatro días de tu muerte hubo un cerrajero trabajando ahí abajo con seis abogados y dos peritos mirándolo. Adentro había, según la primera estimación, material para editar un disco por año durante un siglo.\n\nY acá está la única pregunta que importa y que vos dejaste sin responder a propósito: ¿eso de adentro es tu obra o son tus borradores? Van a decidirlo tus herederos, un sello y un juez, o sea exactamente las tres clases de personas a las que no les dejaste entrar al estudio en toda tu vida.',
+    epitafio: 'No dejó testamento ni la combinación de la bóveda, y las dos cosas fueron a propósito.',
+  },
+  {
+    id: 'el-doble',
+    titulo: 'El que ya estaba muerto',
+    tono: 'misterioso',
+    prioridad: 69,
+    requiere: { flags: ['rumorMuerte'], edadMin: 40, chance: 0.55 },
+    inspiracion:
+      'En 1969, una radio "demostró" que Paul McCartney había muerto tres años antes y que lo habían reemplazado por un doble. Sigue explicándolo cincuenta años después.',
+    texto:
+      'Te moriste dos veces y a la primera no te invitaron.\n\nLa primera fue un martes cualquiera, cuando un tipo con un programa de radio de madrugada explicó, con la tapa de tu disco en la mano y una lógica impecable, que vos habías muerto años antes y que la persona que aparecía en las fotos era un reemplazo contratado por el sello.\n\nLo que siguió fue el fenómeno más idiota y más hermoso que te pasó en la vida. Gente escuchando tus discos al revés. Gente midiendo con regla la altura de tu cabeza en dos fotos distintas. Gente que te veía en persona, te daba la mano, y salía diciendo que el doble estaba muy bien hecho.\n\nLo negaste en tapas de revistas, en entrevistas, en un disco entero. Cada desmentida agregaba fieles, porque en esa clase de historia la desmentida es la prueba.\n\nCuando te moriste de verdad, cincuenta años después, hubo miles de personas que sintieron algo raro y no supieron bien qué. No era dolor. Era otra cosa: era que se les había muerto alguien que, para ellos, ya no estaba desde 1969.\n\nSos la única persona que asistió a su propio velorio y le pareció exagerado.',
+    epitafio: 'Se murió dos veces y a la primera no lo invitaron.',
+  },
+  {
+    id: 'el-otro-hemisferio',
+    titulo: 'El otro hemisferio',
+    tono: 'agridulce',
+    prioridad: 74,
+    requiere: { flags: ['otroHemisferio'], edadMin: 48 },
+    inspiracion:
+      'Sixto Rodríguez grabó dos discos que no vendió nadie y trabajó treinta años en demoliciones en Detroit sin saber que en Sudáfrica era más famoso que los Rolling Stones. Allá creían que se había prendido fuego en un escenario.',
+    texto:
+      'Fracasaste en tu país durante treinta años con una prolijidad admirable.\n\nDos discos que no vendieron nada. Un sello que te soltó por teléfono. Trabajos de verdad, de los que dejan las manos hechas mierda: demoliciones, mudanzas, obra. Criaste hijos. Nunca dejaste de escribir y nunca más volviste a grabar.\n\nDel otro lado del mundo, mientras tanto, tus dos discos eran la banda de sonido de toda una generación que los usaba para pelearse con su gobierno. Vendiste ahí más que casi cualquiera. Todo ese dinero fue a parar a manos que no eran las tuyas y nadie se tomó nunca el trabajo de buscarte.\n\nAllá te creían muerto. La versión más difundida decía que te habías prendido fuego arriba de un escenario, en la mitad de un show, delante de todo el mundo. Miles de personas crecieron con esa imagen tuya.\n\nCuando te encontraron eras un tipo de sesenta años con una caja de herramientas. Fuiste, tocaste para estadios que cantaban tus letras palabra por palabra, volviste, y seguiste viviendo en la misma casa de siempre. Regalaste casi toda la plata.\n\nDe todas las formas posibles de ganarle a esta industria, encontraste la única que ella no sabe cómo contar.',
+    epitafio: 'Del otro lado del mundo lo creían muerto y acá lo creían un albañil. Las dos cosas eran ciertas.',
+  },
+  {
+    id: 'el-disco-secreto',
+    titulo: 'El disco que entregaste sin decir nada',
+    tono: 'epico',
+    prioridad: 89,
+    requiere: { flags: ['discoFinal'] },
+    inspiracion:
+      'David Bowie editó Blackstar dos días antes de morir y casi nadie en el estudio sabía que estaba enfermo. Warren Zevon grabó su último disco con el diagnóstico encima y pidió que no se hablara de otra cosa que de las canciones.',
+    texto:
+      'Grabaste un disco entero sabiendo lo que sabías y no se lo dijiste a casi nadie.\n\nLos músicos de sesión no sabían. El ingeniero no sabía. Uno de ellos contó después que le pediste una toma más de un tema y que no entendió por qué te importaba tanto, un martes cualquiera, con esa urgencia.\n\nSalió y la crítica lo trató como se trata a un disco: bien, con reparos, comparándolo con el anterior. Durante unos días fue simplemente un buen disco tuyo.\n\nDespués te moriste, y el mundo entero volvió a ponerlo desde el primer segundo, y todo lo que había ahí adentro se dio vuelta como un guante. Las letras. La tapa. El título. Los silencios. Todo estaba dicho y nadie lo había escuchado, y esa fue exactamente tu última decisión artística: dejar la explicación para después.\n\nHay gente que dice que convertiste tu propia muerte en una obra. Es un poco cierto y es bastante injusto. Lo que hiciste fue mucho más difícil y mucho menos elegante: fuiste a trabajar todos los días que pudiste.',
+    epitafio: 'Dejó la explicación para después y fue a trabajar todos los días que pudo.',
+  },
+  {
+    id: 'la-casa-rodante',
+    titulo: 'La casa rodante',
+    tono: 'patetico',
+    prioridad: 64,
+    requiere: {
+      algunaFlag: ['perdioDerechos', 'managerLadron', 'roboContador', 'vendioCatalogo'],
+      dineroMax: 4000,
+      edadMin: 46,
+      stats: { fama: { max: 58 } },
+    },
+    inspiracion:
+      'Sly Stone vivió años en una casilla rodante estacionada en una calle de Los Ángeles mientras su catálogo generaba millones para otros. Ganó el juicio y casi nada de esa plata le llegó.',
+    texto:
+      'Escribiste doce temas que suenan hoy, en este momento, en algún lugar del mundo, y vivís en una casa rodante estacionada en la calle de un amigo.\n\nNo la perdiste en la timba ni en la joda, aunque eso es lo que va a decir todo el mundo porque es más cómodo. La perdiste firmando. Firmaste a los veintidós lo que te pusieron adelante, y después firmaste otra vez a los treinta para salir del primer contrato, y esa segunda firma fue la que te terminó de sacar todo.\n\nGanaste un juicio a los sesenta. Salió en los diarios. La plata que efectivamente llegó a tus manos no alcanzó para un departamento.\n\nCada tanto un director de documentales te encuentra y te pone una cámara adelante, y vos hacés el número que esperan: el genio arruinado, lúcido y gracioso. Cobrás en efectivo. Es un trabajo.\n\nLa gente que te visita cuenta siempre lo mismo: que adentro de esa casa rodante hay un teclado, y que sonás igual que siempre.',
+    epitafio: 'No la perdió en la joda: la perdió firmando.',
+  },
+  {
+    id: 'el-que-devolvio-la-plata',
+    titulo: 'El que devolvió la plata',
+    tono: 'agridulce',
+    prioridad: 68,
+    requiere: { flags: ['regaloTodo'], edadMin: 45 },
+    inspiracion:
+      'Peter Green, de Fleetwood Mac, regaló su parte de las regalías y llegó a amenazar a su contador para que dejara de mandarle cheques. Pasó años internado y después trabajando de sepulturero.',
+    texto:
+      'Devolviste la plata. No una parte simbólica: toda.\n\nEmpezó como una idea razonable sobre lo que uno necesita para vivir y terminó, en cuestión de meses, en un tipo llamando por teléfono a su contador para exigirle que dejara de mandarle cheques, y después yendo a la oficina a exigírselo en persona, y después de una manera que asustó a todo el mundo y terminó con vos internado.\n\nHay una versión en la que sos un santo y hay una versión en la que estabas muy enfermo. Las dos son ciertas y la segunda es la importante, aunque la primera vende más entradas.\n\nTrabajaste de otras cosas. En un momento, de sepulturero. La gente que te reconocía en esos años cuenta que eras amable y que no querías hablar de música.\n\nVolviste a tocar de viejo, con las manos más lentas y con una banda que te cuidaba. En esos shows había siempre alguien llorando en la tercera fila y no eran fans: eran músicos.\n\nDe todos los que se quedaron con esa plata, ninguno tocó nunca como vos.',
+    epitafio: 'Llamó a su contador para exigirle que dejara de mandarle cheques.',
+  },
+  {
+    id: 'el-cuerpo-roto',
+    titulo: 'Los dedales',
+    tono: 'epico',
+    prioridad: 71,
+    requiere: { flags: ['cuerpoRoto'], edadMin: 44, stats: { credibilidad: { min: 42 } } },
+    inspiracion:
+      'Tony Iommi perdió las puntas de dos dedos en una prensa el último día que trabajó en la fábrica: se hizo prótesis con un envase de detergente, bajó la afinación y así sonó el heavy metal. Rick Allen volvió a tocar la batería con un brazo. Django Reinhardt rehizo toda su técnica con dos dedos.',
+    texto:
+      'El accidente fue en el peor momento posible, que es siempre el momento en que ocurren.\n\nTe dijeron que se terminó. Lo dijo un médico, con buenos modales y con razón estadística, y lo repitieron todos los que te querían para que no te hicieras ilusiones.\n\nEntonces hiciste lo único que se podía hacer, que era inventar otra manera. Prótesis caseras hechas con lo que había. Una afinación distinta porque la de antes te tiraba de más. Un instrumento reordenado al revés de como lo ordena el mundo. Tardaste dos años y en esos dos años no le mostraste el resultado a nadie.\n\nLo que salió de ahí no sonaba a lo de antes. Sonaba peor y sonaba nuevo, y ese "nuevo" resultó ser el comienzo de algo que después copiaron miles de personas con las manos intactas.\n\nHay una generación entera de músicos que toca así porque vos te lastimaste. Ninguno lo sabe.\n\nMoriste viejo y seguiste tocando hasta el final, con dolor todos los días y sin mencionarlo nunca, porque mencionarlo hubiera sido pedir un descuento.',
+    epitafio: 'Una generación entera toca así porque él se lastimó, y ninguno lo sabe.',
   },
 ]
 

@@ -6,6 +6,7 @@ import { EVENTOS_SUSTANCIAS } from './sustancias'
 import { EVENTOS_LEGADO } from './legado'
 import { EVENTOS_MITO } from './mito'
 import { EVENTOS_RUTINA } from './rutina'
+import { EVENTOS_BIZARROS } from './bizarros'
 
 export const TODOS_LOS_EVENTOS: Evento[] = [
   ...EVENTOS_GARAJE,
@@ -15,6 +16,7 @@ export const TODOS_LOS_EVENTOS: Evento[] = [
   ...EVENTOS_LEGADO,
   ...EVENTOS_MITO,
   ...EVENTOS_RUTINA,
+  ...EVENTOS_BIZARROS,
 ]
 
 export const EVENTOS_POR_ID: Record<string, Evento> = Object.fromEntries(

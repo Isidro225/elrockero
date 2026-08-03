@@ -222,6 +222,8 @@ export interface Evento {
   categoria?: CategoriaEvento
   /** Marca eventos que tocan temas sensibles (suicidio, autolesión). */
   sensible?: boolean
+  /** Incidente real que inspiró el evento (se muestra después de elegir). */
+  inspiracion?: string
   opciones: Opcion[]
 }
 

@@ -310,6 +310,8 @@ export const EVENTOS_ESTRELLATO: Evento[] = [
     id: 'estr-hotel',
     titulo: 'La habitación 402',
     categoria: 'mito',
+    inspiracion:
+      'La leyenda dice que Keith Moon metió un auto en la pileta de un Holiday Inn el día que cumplió veintiún años; él la contó de doce maneras distintas y el gerente juró siempre que fue verdad. Led Zeppelin tenía prohibida la entrada en toda una cadena de hoteles. Lo del televisor por la ventana lo hicieron tantos que ya nadie sabe quién fue el primero.',
     texto:
       'Son las cinco de la mañana en un hotel de lujo. Hay un televisor, una ventana grande y una idea muy estúpida que a todos les parece buenísima.',
     requiere: { stats: { fama: { min: 55 }, adiccion: { min: 30 } }, sinFlags: ['destrozoHotel'] },
@@ -355,6 +357,37 @@ export const EVENTOS_ESTRELLATO: Evento[] = [
             efectos: {
               stats: { quimica: 14, cordura: 8, fama: 4, salud: -4 },
               flags: { destrozoHotel: 1 },
+            },
+          },
+        ],
+      },
+      {
+        id: 'auto',
+        texto: 'Bajar el auto de alquiler a la pileta',
+        riesgo: 'riesgoso',
+        requiere: { dineroMin: 20000 },
+        bloqueo: 'No tenés con qué pagar ese despelote',
+        resultados: [
+          {
+            peso: 2,
+            texto:
+              'Sacás el freno de mano en la rampa de la cochera y el auto entra al agua con una lentitud majestuosa, con las luces prendidas, mientras catorce personas aplauden desde el balcón.\n\nEl gerente del hotel lo va a contar en cada cumpleaños durante treinta años y siempre lo va a contar mejor. Vos, a los sesenta, vas a decir en las entrevistas que nunca pasó, y él va a seguir teniendo la factura.',
+            efectos: {
+              stats: { fama: 24, credibilidad: 10, cordura: -8, quimica: 12 },
+              dinero: -45000,
+              flags: { destrozoHotel: 1, leyendaHotel: 1, mitoVivo: 1 },
+              titular: '"Metió un auto en la pileta del hotel": {apodo} pagó los daños en efectivo',
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'El auto no llega a la pileta: rompe una baranda, tres macetas y el frente de una habitación en planta baja donde había una familia durmiendo. No hay heridos por un metro y medio.\n\nLos echan de la cadena entera de hoteles, en todos los países, para siempre. Ese papel lo van a enmarcar y va a ser lo primero que se ve al entrar a la sala de ensayo.',
+            efectos: {
+              stats: { fama: 16, credibilidad: -8, cordura: -16 },
+              dinero: -90000,
+              flags: { destrozoHotel: 1, leyendaHotel: 1, causaPenal: 1 },
+              titular: '"Prohibidos de por vida": el desastre de {banda} en un hotel cinco estrellas',
             },
           },
         ],
@@ -445,6 +478,8 @@ export const EVENTOS_ESTRELLATO: Evento[] = [
     id: 'estr-politica',
     titulo: 'El político quiere una foto',
     categoria: 'prensa',
+    inspiracion:
+      'Durante el boicot cultural a la Sudáfrica del apartheid, decenas de artistas cobraron fortunas por tocar en el complejo de Sun City y terminaron en una lista negra de las Naciones Unidas. Queen, Rod Stewart y Elton John estuvieron ahí; Little Steven armó un disco colectivo para escracharlos. Varios pidieron perdón años después.',
     texto:
       'Un candidato con muchas chances quiere usar tu tema en la campaña y quiere una foto con vos. Ofrece plata y ofrece cosas que no son plata.',
     requiere: { stats: { fama: { min: 60 } }, sinFlags: ['fotoPolitica'] },
@@ -478,6 +513,34 @@ export const EVENTOS_ESTRELLATO: Evento[] = [
             efectos: {
               stats: { credibilidad: 22, fama: 12, cordura: -4 },
               flags: { fotoPolitica: 1, enfrentoPoder: 1 },
+            },
+          },
+        ],
+      },
+      {
+        id: 'resort',
+        texto: 'Nada de política local: aceptar la fortuna que ofrece el resort del país boicoteado',
+        riesgo: 'riesgoso',
+        resultados: [
+          {
+            peso: 2,
+            texto:
+              'Hacés ocho noches en un complejo de lujo, en un país que medio mundo boicotea, por una cifra que no te van a pagar nunca en ningún otro lado. El público es local, canta todo y te trata como a un rey.\n\nA la vuelta estás en una lista de las Naciones Unidas, hay tres músicos que arman una canción colectiva para escracharte por nombre y apellido, y tu explicación —que la música une a la gente— suena mal incluso mientras la estás diciendo.\n\nVeinte años después pedís disculpas y aceptan la mitad.',
+            efectos: {
+              stats: { credibilidad: -30, fama: 12, cordura: -10 },
+              dinero: 320000,
+              flags: { fotoPolitica: 1, listaNegra: 1, selloutPublico: 1, manchaPolitica: 1 },
+              titular: '"Tocó en el resort del régimen": {apodo} en la lista negra internacional',
+            },
+          },
+          {
+            peso: 1,
+            texto:
+              'Firmás, cobrás la seña y a las dos semanas te llama de madrugada un músico de ochenta años, de allá, y te explica en diez minutos qué es exactamente el lugar donde vas a tocar y quién no puede entrar.\n\nCancelás y devolvés la seña. No lo contás en ningún lado. El único que lo sabe es un viejo del otro lado del mundo y con eso te alcanza.',
+            efectos: {
+              stats: { credibilidad: 18, cordura: 12, fama: -4 },
+              dinero: -40000,
+              flags: { fotoPolitica: 1, integro: 1, principios: 1 },
             },
           },
         ],

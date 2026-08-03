@@ -346,7 +346,13 @@ function componerDisco(p: Partida, azar: Azar): Disco {
   )
 
   return {
-    titulo: tituloDeDisco(azar, p.personaje.genero.toLowerCase(), p.discografia.length + 1),
+    titulo: tituloDeDisco(
+      azar,
+      p.personaje.genero.toLowerCase(),
+      p.discografia.length + 1,
+      p.discografia.map((d) => d.titulo),
+      p.banda?.nombre ?? null,
+    ),
     anio: p.anio,
     puntaje,
     ventas,
