@@ -1,0 +1,993 @@
+/* ==========================================================================
+   El Rockero — estética de afiche fotocopiado
+   ========================================================================== */
+
+:root {
+  --negro: #0a0a0b;
+  --negro-2: #121214;
+  --negro-3: #191a1d;
+  --linea: #2c2d31;
+  --linea-clara: #3d3f45;
+  --hueso: #ece7de;
+  --hueso-tenue: #9a958c;
+  --gris: #6d6a65;
+  --rojo: #e02b1d;
+  --rojo-claro: #ff5a45;
+  --ambar: #e8a020;
+  --verde: #4aa871;
+  --violeta: #9a7ae0;
+
+  --titular: 'Haettenschweiler', 'Arial Narrow Bold', 'Oswald', Impact, sans-serif;
+  --texto: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --radio: 2px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--negro);
+  color: var(--hueso);
+  font-family: var(--texto);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(224, 43, 29, 0.13), transparent 45%),
+    radial-gradient(circle at 90% 5%, rgba(154, 122, 224, 0.08), transparent 40%);
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Estructura
+   -------------------------------------------------------------------------- */
+
+.app {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+.pila {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.fila {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fila-entre {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Tipografía
+   -------------------------------------------------------------------------- */
+
+.titulo-app {
+  font-family: var(--titular);
+  font-size: clamp(3.5rem, 14vw, 7.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--hueso);
+}
+
+.titulo-app em {
+  font-style: normal;
+  color: var(--rojo);
+  display: block;
+}
+
+.titulo {
+  font-family: var(--titular);
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitulo {
+  font-family: var(--titular);
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-size: 0.86rem;
+  color: var(--hueso-tenue);
+  margin: 0;
+}
+
+.epigrafe {
+  font-style: italic;
+  color: var(--hueso-tenue);
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.cuerpo {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.chico {
+  font-size: 0.85rem;
+  color: var(--hueso-tenue);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Portada
+   -------------------------------------------------------------------------- */
+
+.portada {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 34px;
+  padding: 60px 0;
+}
+
+.portada-bajada {
+  font-size: 1.15rem;
+  max-width: 46ch;
+  color: var(--hueso-tenue);
+  margin: 0;
+}
+
+.franja {
+  border-top: 3px solid var(--rojo);
+  border-bottom: 1px solid var(--linea);
+  padding: 10px 0;
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.franja span {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+/* --------------------------------------------------------------------------
+   Botones
+   -------------------------------------------------------------------------- */
+
+.boton {
+  background: transparent;
+  border: 1px solid var(--linea-clara);
+  color: var(--hueso);
+  padding: 11px 20px;
+  border-radius: var(--radio);
+  font-family: var(--titular);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.06s ease;
+}
+
+.boton:hover:not(:disabled) {
+  background: var(--negro-3);
+  border-color: var(--hueso-tenue);
+}
+
+.boton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.boton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.boton-principal {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 14px 30px;
+}
+
+.boton-principal:hover:not(:disabled) {
+  background: var(--rojo-claro);
+  border-color: var(--rojo-claro);
+}
+
+.boton-fantasma {
+  border-color: transparent;
+  color: var(--hueso-tenue);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+.boton-fantasma:hover:not(:disabled) {
+  color: var(--hueso);
+  background: var(--negro-3);
+}
+
+/* --------------------------------------------------------------------------
+   Creación de personaje
+   -------------------------------------------------------------------------- */
+
+.paso {
+  border-top: 1px solid var(--linea);
+  padding-top: 20px;
+}
+
+.paso-cabeza {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.paso-numero {
+  font-family: var(--titular);
+  font-size: 2rem;
+  color: var(--rojo);
+  line-height: 1;
+}
+
+.opciones-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.opcion-tarjeta {
+  text-align: left;
+  background: var(--negro-2);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.opcion-tarjeta:hover {
+  border-color: var(--linea-clara);
+  background: var(--negro-3);
+}
+
+.opcion-tarjeta[aria-pressed='true'] {
+  border-color: var(--rojo);
+  background: rgba(224, 43, 29, 0.09);
+}
+
+.opcion-nombre {
+  font-family: var(--titular);
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+}
+
+.opcion-desc {
+  font-size: 0.88rem;
+  color: var(--hueso-tenue);
+  line-height: 1.45;
+}
+
+.efectos-linea {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 2px;
+}
+
+.pastilla {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radio);
+  border: 1px solid var(--linea-clara);
+  color: var(--hueso-tenue);
+  white-space: nowrap;
+}
+
+.pastilla.pos {
+  color: var(--verde);
+  border-color: rgba(74, 168, 113, 0.4);
+}
+
+.pastilla.neg {
+  color: var(--rojo-claro);
+  border-color: rgba(224, 43, 29, 0.4);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 340px;
+}
+
+.campo label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hueso-tenue);
+}
+
+.campo input {
+  background: var(--negro-2);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  color: var(--hueso);
+  padding: 10px 12px;
+  font-family: var(--titular);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.campo input:focus {
+  outline: none;
+  border-color: var(--rojo);
+}
+
+.barra-inferior {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(to top, var(--negro) 62%, transparent);
+  padding: 22px 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Cabecera de partida
+   -------------------------------------------------------------------------- */
+
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(10, 10, 11, 0.93);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linea);
+  margin: 0 -20px 24px;
+  padding: 12px 20px;
+}
+
+.cabecera-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.identidad {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.identidad strong {
+  font-family: var(--titular);
+  font-size: 1.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: normal;
+}
+
+.reloj {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--hueso-tenue);
+  text-align: right;
+}
+
+.reloj b {
+  color: var(--hueso);
+  font-weight: normal;
+}
+
+/* --------------------------------------------------------------------------
+   Stats
+   -------------------------------------------------------------------------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+  gap: 8px 16px;
+  margin-top: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stat-cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stat-nombre {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--hueso-tenue);
+}
+
+.stat-valor {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--hueso);
+}
+
+.stat-barra {
+  height: 4px;
+  background: var(--linea);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.stat-relleno {
+  height: 100%;
+  background: var(--hueso);
+  transition: width 0.35s ease;
+}
+
+.stat.peligro .stat-relleno {
+  background: var(--rojo);
+}
+
+.stat.alerta .stat-relleno {
+  background: var(--ambar);
+}
+
+.stat.bien .stat-relleno {
+  background: var(--verde);
+}
+
+.stat-delta {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
+
+.delta-pos {
+  color: var(--verde);
+}
+
+.delta-neg {
+  color: var(--rojo-claro);
+}
+
+.plata {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+.plata.rojo {
+  color: var(--rojo-claro);
+}
+
+/* --------------------------------------------------------------------------
+   Tarjeta de evento
+   -------------------------------------------------------------------------- */
+
+.tarjeta {
+  background: var(--negro-2);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 26px 26px 24px;
+}
+
+.tarjeta-evento {
+  border-left: 3px solid var(--rojo);
+}
+
+.marca-agenda {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-bottom: 10px;
+}
+
+.opciones-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 24px;
+}
+
+.opcion-boton {
+  text-align: left;
+  background: var(--negro-3);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.12s ease, background 0.12s ease, transform 0.06s ease;
+  font-family: var(--texto);
+  font-size: 1.02rem;
+  line-height: 1.4;
+}
+
+.opcion-boton:hover:not(:disabled) {
+  border-color: var(--hueso-tenue);
+  background: #1e1f23;
+}
+
+.opcion-boton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.opcion-boton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.opcion-texto {
+  flex: 1;
+}
+
+.riesgo {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: var(--radio);
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+.riesgo-seguro {
+  color: var(--verde);
+  border-color: rgba(74, 168, 113, 0.45);
+}
+
+.riesgo-dudoso {
+  color: var(--ambar);
+  border-color: rgba(232, 160, 32, 0.45);
+}
+
+.riesgo-riesgoso {
+  color: var(--rojo-claro);
+  border-color: rgba(255, 90, 69, 0.5);
+}
+
+.riesgo-letal {
+  color: #fff;
+  background: var(--rojo);
+  border-color: var(--rojo);
+}
+
+.bloqueo {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+/* Resultado */
+
+.resultado {
+  margin-top: 22px;
+  border-top: 1px solid var(--linea);
+  padding-top: 20px;
+  animation: aparecer 0.28s ease;
+}
+
+.resultado-elegiste {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin: 0 0 10px;
+}
+
+.resultado-texto {
+  font-size: 1.08rem;
+  margin: 0;
+}
+
+.titular-prensa {
+  margin-top: 18px;
+  border-top: 2px solid var(--hueso);
+  border-bottom: 2px solid var(--hueso);
+  padding: 10px 0;
+  font-family: var(--titular);
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  line-height: 1.05;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Resumen de año
+   -------------------------------------------------------------------------- */
+
+.resumen-lineas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.resumen-lineas li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.resumen-lineas li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--rojo);
+}
+
+.disco-ficha {
+  border: 1px solid var(--linea-clara);
+  border-radius: var(--radio);
+  padding: 16px;
+  margin-top: 18px;
+  background: var(--negro-3);
+}
+
+.disco-titulo {
+  font-family: var(--titular);
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 6px;
+}
+
+.puntaje-disco {
+  font-family: var(--titular);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rojo);
+}
+
+/* --------------------------------------------------------------------------
+   Final
+   -------------------------------------------------------------------------- */
+
+.final {
+  padding: 40px 0;
+}
+
+.final-tono {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tono-tragico {
+  color: var(--rojo);
+}
+.tono-epico {
+  color: var(--ambar);
+}
+.tono-agridulce {
+  color: var(--verde);
+}
+.tono-patetico {
+  color: var(--gris);
+}
+.tono-misterioso {
+  color: var(--violeta);
+}
+
+.final-titulo {
+  font-family: var(--titular);
+  font-size: clamp(3rem, 11vw, 6rem);
+  line-height: 0.86;
+  text-transform: uppercase;
+  margin: 8px 0 20px;
+}
+
+.final-texto {
+  font-size: 1.12rem;
+  white-space: pre-line;
+  max-width: 62ch;
+}
+
+.epitafio {
+  border-left: 3px solid var(--rojo);
+  padding: 4px 0 4px 18px;
+  font-style: italic;
+  font-size: 1.12rem;
+  margin: 28px 0;
+  color: var(--hueso);
+}
+
+.nota-inspiracion {
+  border: 1px dashed var(--linea-clara);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  color: var(--hueso-tenue);
+}
+
+.nota-ayuda {
+  border: 1px solid rgba(224, 43, 29, 0.4);
+  background: rgba(224, 43, 29, 0.06);
+  border-radius: var(--radio);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  color: var(--hueso-tenue);
+}
+
+.marcador {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+  border-top: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+  padding: 18px 0;
+}
+
+.marcador div span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-bottom: 3px;
+}
+
+.marcador div b {
+  font-family: var(--titular);
+  font-size: 1.7rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Línea de tiempo
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 1px solid var(--linea);
+  padding-left: 20px;
+  margin-left: 6px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--negro-3);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 20px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--linea-clara);
+  border: 2px solid var(--negro);
+}
+
+.timeline-item.tipo-disco::before {
+  background: var(--ambar);
+}
+.timeline-item.tipo-titular::before {
+  background: var(--hueso);
+}
+.timeline-item.tipo-final::before {
+  background: var(--rojo);
+}
+.timeline-item.tipo-hito::before {
+  background: var(--verde);
+}
+
+.timeline-anio {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--gris);
+}
+
+.timeline-titulo {
+  font-family: var(--titular);
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  margin: 2px 0;
+}
+
+.timeline-item.tipo-titular .timeline-titulo {
+  font-family: var(--texto);
+  text-transform: none;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.timeline-detalle {
+  font-size: 0.92rem;
+  color: var(--hueso-tenue);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Salón de la fama
+   -------------------------------------------------------------------------- */
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gris);
+  border-bottom: 1px solid var(--linea);
+  padding: 8px 10px 8px 0;
+  font-weight: normal;
+}
+
+.tabla td {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid var(--negro-3);
+  vertical-align: top;
+}
+
+.tabla tbody tr:hover {
+  background: var(--negro-2);
+}
+
+.envoltorio-tabla {
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Modal
+   -------------------------------------------------------------------------- */
+
+.modal-fondo {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 4, 5, 0.86);
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+
+.modal {
+  background: var(--negro-2);
+  border: 1px solid var(--linea-clara);
+  border-radius: var(--radio);
+  max-width: 760px;
+  width: 100%;
+  padding: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   Utilidades
+   -------------------------------------------------------------------------- */
+
+.separador {
+  border: 0;
+  border-top: 1px solid var(--linea);
+  margin: 0;
+}
+
+.centro {
+  text-align: center;
+}
+
+.aviso {
+  border: 1px solid var(--linea-clara);
+  border-radius: var(--radio);
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  color: var(--hueso-tenue);
+  background: var(--negro-2);
+}
+
+@media (max-width: 620px) {
+  body {
+    font-size: 16px;
+  }
+  .tarjeta {
+    padding: 20px 18px;
+  }
+  .app {
+    padding: 0 14px 60px;
+  }
+  .cabecera {
+    margin: 0 -14px 20px;
+    padding: 10px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
