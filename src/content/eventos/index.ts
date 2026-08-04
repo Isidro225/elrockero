@@ -1,4 +1,5 @@
 import type { Evento } from '../../engine/types'
+import { EVENTOS_APERTURA } from './apertura'
 import { EVENTOS_GARAJE } from './garaje'
 import { EVENTOS_ASCENSO } from './ascenso'
 import { EVENTOS_ESTRELLATO } from './estrellato'
@@ -9,6 +10,7 @@ import { EVENTOS_RUTINA } from './rutina'
 import { EVENTOS_BIZARROS } from './bizarros'
 
 export const TODOS_LOS_EVENTOS: Evento[] = [
+  ...EVENTOS_APERTURA,
   ...EVENTOS_GARAJE,
   ...EVENTOS_ASCENSO,
   ...EVENTOS_ESTRELLATO,

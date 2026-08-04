@@ -24,6 +24,7 @@ import {
 } from './reglas'
 import { disparadorDelAnio } from './disparadores'
 import { EVENTOS_POR_ID, EVENTOS_SORTEABLES } from '../content/eventos'
+import { APERTURA_POR_DECADA, APERTURA_POR_ORIGEN } from '../content/eventos/apertura'
 import { FINALES, FINAL_POR_DEFECTO } from '../content/finales'
 import {
   DECADAS,
@@ -77,6 +78,13 @@ export function nuevaPartida(cfg: ConfigCreacion, semilla = Date.now()): Partida
     for (const f of e.flags ?? []) flags[f] = 1
   }
 
+  // El primer año no se sortea: son dos situaciones introductorias que ponen
+  // al personaje en el entorno del que sale (de dónde viene y qué época le
+  // tocó). Recién a partir del segundo año entra el sorteo normal.
+  const apertura = [APERTURA_POR_ORIGEN[origen.id], APERTURA_POR_DECADA[decada.id]].filter(
+    (id): id is string => Boolean(id && EVENTOS_POR_ID[id]),
+  )
+
   const partida: Partida = {
     version: VERSION_PARTIDA,
     semilla,
@@ -118,7 +126,15 @@ export function nuevaPartida(cfg: ConfigCreacion, semilla = Date.now()): Partida
     aniosAlLimite: 0,
   }
 
-  return abrirAnio(partida)
+  // El año de apertura no pasa por el sorteo: es siempre, y sólo, esas dos
+  // situaciones. Si por lo que sea no hay apertura para esa combinación, se
+  // arma el año como cualquier otro.
+  if (apertura.length === 0) return abrirAnio(partida)
+
+  return {
+    ...partida,
+    agenda: apertura.map((id) => ({ evento: EVENTOS_POR_ID[id] })),
+  }
 }
 
 // ---------------------------------------------------------------------------

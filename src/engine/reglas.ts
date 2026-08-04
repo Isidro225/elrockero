@@ -211,4 +211,6 @@ export function interpolar(texto: string, p: Partida): string {
     .replace(/\{anio\}/g, String(p.anio))
     .replace(/\{rol\}/g, p.personaje.rol)
     .replace(/\{genero\}/g, p.personaje.genero)
+    .replace(/\{pais\}/g, p.personaje.nacionalidad)
+    .replace(/\{origen\}/g, p.personaje.origen)
 }
