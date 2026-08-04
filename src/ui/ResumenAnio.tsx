@@ -15,9 +15,7 @@ export function ResumenAnio({ partida, onSeguir }: { partida: Partida; onSeguir:
   return (
     <article className="tarjeta">
       <p className="marca-agenda">Cierre de temporada · {FASE_NOMBRE[faseActual(partida)]}</p>
-      <h2 className="titulo" style={{ fontSize: '3.4rem' }}>
-        {r.anio}
-      </h2>
+      <h2 className="anio-cierre">{r.anio}</h2>
       <p className="chico" style={{ marginTop: 4 }}>
         Terminás el año con {r.edad} años.
       </p>

@@ -1,27 +1,41 @@
 /* ==========================================================================
    El Rockero — estética de afiche fotocopiado
+
+   Tres capas de lenguaje visual:
+   · el papel   — fondo negro con grano, veladuras de tinta y viñeta
+   · la tinta   — rojo de una sola pasada, siempre plano, nunca degradado
+   · la imprenta— sombras duras sin blur, reglas gruesas, versalitas apretadas
    ========================================================================== */
 
 :root {
-  --negro: #0a0a0b;
-  --negro-2: #121214;
-  --negro-3: #191a1d;
-  --linea: #2c2d31;
-  --linea-clara: #3d3f45;
-  --hueso: #ece7de;
-  --hueso-tenue: #9a958c;
-  --gris: #6d6a65;
+  --negro: #08080a;
+  --negro-2: #101013;
+  --negro-3: #17181c;
+  --negro-4: #1e1f24;
+  --linea: #2a2b30;
+  --linea-clara: #3e4046;
+  --hueso: #ede8de;
+  --hueso-tenue: #a09a90;
+  --gris: #7b776f;
   --rojo: #e02b1d;
+  --rojo-hondo: #a81a10;
   --rojo-claro: #ff5a45;
   --ambar: #e8a020;
   --verde: #4aa871;
   --violeta: #9a7ae0;
 
-  --titular: 'Haettenschweiler', 'Arial Narrow Bold', 'Oswald', Impact, sans-serif;
-  --texto: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  /* Titulares de tapa: negra, condensada, sin aire. */
+  --display: 'Anton', 'Haettenschweiler', 'Arial Narrow Bold', Impact, sans-serif;
+  /* Interfaz: condensada pero legible en cuerpo chico. */
+  --titular: 'Oswald Variable', 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  /* Cuerpo: serif de diario, que es donde vive el texto del juego. */
+  --texto: 'Newsreader Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
 
   --radio: 2px;
+  /* Sombra de imprenta: desplazada, dura, sin difuminar. */
+  --sombra-dura: 5px 5px 0 rgba(0, 0, 0, 0.55);
+  --sombra-tinta: 4px 4px 0 var(--rojo-hondo);
 }
 
 * {
@@ -34,21 +48,47 @@ body {
   padding: 0;
 }
 
+html {
+  scrollbar-color: var(--linea-clara) var(--negro);
+}
+
 body {
-  background: var(--negro);
+  background-color: var(--negro);
   color: var(--hueso);
   font-family: var(--texto);
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 17.5px;
+  line-height: 1.62;
+  font-variant-numeric: oldstyle-nums;
   -webkit-font-smoothing: antialiased;
+  /* Veladuras de tinta: una roja arriba a la izquierda, una violeta a la
+     derecha, como un afiche impreso con los colores fuera de registro. */
   background-image:
-    radial-gradient(circle at 15% -10%, rgba(224, 43, 29, 0.13), transparent 45%),
-    radial-gradient(circle at 90% 5%, rgba(154, 122, 224, 0.08), transparent 40%);
+    radial-gradient(circle at 12% -12%, rgba(224, 43, 29, 0.16), transparent 46%),
+    radial-gradient(circle at 92% 4%, rgba(154, 122, 224, 0.09), transparent 42%),
+    radial-gradient(circle at 50% 120%, rgba(232, 160, 32, 0.05), transparent 55%);
   background-attachment: fixed;
+}
+
+/* Grano de fotocopia sobre todo lo demás. No intercepta clicks. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--rojo);
+  color: #fff;
 }
 
 button {
@@ -58,20 +98,25 @@ button {
   cursor: pointer;
 }
 
+:focus-visible {
+  outline: 2px solid var(--rojo-claro);
+  outline-offset: 2px;
+}
+
 /* --------------------------------------------------------------------------
    Estructura
    -------------------------------------------------------------------------- */
 
 .app {
-  max-width: 940px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 0 20px 80px;
+  padding: 0 22px 96px;
 }
 
 .pila {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 24px;
 }
 
 .fila {
@@ -93,35 +138,41 @@ button {
    -------------------------------------------------------------------------- */
 
 .titulo-app {
-  font-family: var(--titular);
-  font-size: clamp(3.5rem, 14vw, 7.5rem);
-  line-height: 0.85;
-  letter-spacing: -0.02em;
+  font-family: var(--display);
+  font-size: clamp(4rem, 15vw, 8.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.015em;
   text-transform: uppercase;
   margin: 0;
   color: var(--hueso);
+  /* Fuera de registro: la plancha de tinta corrida un pelo. */
+  text-shadow: 3px 3px 0 rgba(224, 43, 29, 0.22);
 }
 
 .titulo-app em {
   font-style: normal;
   color: var(--rojo);
   display: block;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 }
 
 .titulo {
   font-family: var(--titular);
+  font-weight: 600;
   font-size: clamp(1.9rem, 5vw, 2.9rem);
-  line-height: 0.98;
+  line-height: 1.02;
   letter-spacing: 0.005em;
   text-transform: uppercase;
   margin: 0;
+  text-wrap: balance;
 }
 
 .subtitulo {
   font-family: var(--titular);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.11em;
-  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  font-size: 0.82rem;
   color: var(--hueso-tenue);
   margin: 0;
 }
@@ -130,16 +181,17 @@ button {
   font-style: italic;
   color: var(--hueso-tenue);
   margin: 0;
-  font-size: 0.98rem;
+  font-size: 1rem;
 }
 
 .cuerpo {
   margin: 0;
   white-space: pre-line;
+  max-width: 68ch;
 }
 
 .chico {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--hueso-tenue);
 }
 
@@ -148,6 +200,7 @@ button {
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 
 /* --------------------------------------------------------------------------
@@ -160,31 +213,69 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 34px;
-  padding: 60px 0;
+  padding: 64px 0;
+}
+
+.portada > div:first-child {
+  position: relative;
+}
+
+/* Sello de goma en la esquina del afiche. */
+.portada-sello {
+  position: absolute;
+  top: -6px;
+  right: 0;
+  margin: 0;
+  transform: rotate(-7deg);
+  border: 2px solid var(--rojo);
+  color: var(--rojo);
+  padding: 7px 13px 6px;
+  font-family: var(--titular);
+  font-weight: 600;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  text-align: center;
+  opacity: 0.85;
+  max-width: 200px;
 }
 
 .portada-bajada {
-  font-size: 1.15rem;
-  max-width: 46ch;
+  font-size: 1.16rem;
+  max-width: 48ch;
   color: var(--hueso-tenue);
   margin: 0;
+  border-left: 2px solid var(--linea);
+  padding-left: 18px;
 }
 
 .franja {
-  border-top: 3px solid var(--rojo);
+  border-top: 4px solid var(--rojo);
   border-bottom: 1px solid var(--linea);
-  padding: 10px 0;
+  padding: 11px 0;
   display: flex;
-  gap: 26px;
+  gap: 0;
   flex-wrap: wrap;
 }
 
 .franja span {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gris);
+  padding: 0 22px;
+  border-right: 1px solid var(--linea);
+}
+
+.franja span:first-child {
+  padding-left: 0;
+}
+
+.franja span:last-child {
+  border-right: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -198,23 +289,28 @@ button {
   padding: 11px 20px;
   border-radius: var(--radio);
   font-family: var(--titular);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 1.05rem;
-  transition: background 0.12s ease, border-color 0.12s ease, transform 0.06s ease;
+  letter-spacing: 0.08em;
+  font-size: 1.02rem;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease,
+    transform 0.08s ease;
 }
 
 .boton:hover:not(:disabled) {
   background: var(--negro-3);
   border-color: var(--hueso-tenue);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
 }
 
 .boton:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: translate(1px, 1px);
+  box-shadow: none;
 }
 
 .boton:disabled {
-  opacity: 0.35;
+  opacity: 0.32;
   cursor: not-allowed;
 }
 
@@ -222,25 +318,35 @@ button {
   background: var(--rojo);
   border-color: var(--rojo);
   color: #fff;
-  font-size: 1.25rem;
-  padding: 14px 30px;
+  font-weight: 600;
+  font-size: 1.22rem;
+  padding: 14px 32px;
+  box-shadow: var(--sombra-dura);
 }
 
 .boton-principal:hover:not(:disabled) {
   background: var(--rojo-claro);
   border-color: var(--rojo-claro);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.55);
+}
+
+.boton-principal:active:not(:disabled) {
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.55);
 }
 
 .boton-fantasma {
   border-color: transparent;
   color: var(--hueso-tenue);
   padding: 8px 12px;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  letter-spacing: 0.1em;
 }
 
 .boton-fantasma:hover:not(:disabled) {
   color: var(--hueso);
   background: var(--negro-3);
+  box-shadow: none;
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -249,78 +355,106 @@ button {
 
 .paso {
   border-top: 1px solid var(--linea);
-  padding-top: 20px;
+  padding-top: 22px;
 }
 
 .paso-cabeza {
   display: flex;
   align-items: baseline;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
 .paso-numero {
-  font-family: var(--titular);
-  font-size: 2rem;
+  font-family: var(--display);
+  font-size: 2.2rem;
   color: var(--rojo);
   line-height: 1;
+  flex: none;
 }
 
 .opciones-grilla {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
   gap: 10px;
 }
 
 .opcion-tarjeta {
+  position: relative;
+  overflow: hidden;
   text-align: left;
   background: var(--negro-2);
   border: 1px solid var(--linea);
   border-radius: var(--radio);
-  padding: 13px 15px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: border-color 0.12s ease, background 0.12s ease;
+  gap: 7px;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease,
+    transform 0.08s ease;
 }
 
-.opcion-tarjeta:hover {
+/* Sólo levantan las que son botones: en el salón de la fama la misma tarjeta
+   se usa como ficha de lectura. */
+button.opcion-tarjeta:hover {
   border-color: var(--linea-clara);
   background: var(--negro-3);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+}
+
+button.opcion-tarjeta:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
 }
 
 .opcion-tarjeta[aria-pressed='true'] {
   border-color: var(--rojo);
   background: rgba(224, 43, 29, 0.09);
+  box-shadow: 3px 3px 0 rgba(168, 26, 16, 0.45);
+}
+
+/* Esquina doblada en tinta roja sobre la opción elegida. */
+.opcion-tarjeta[aria-pressed='true']::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 20px solid var(--rojo);
+  border-left: 20px solid transparent;
 }
 
 .opcion-nombre {
   font-family: var(--titular);
+  font-weight: 600;
   text-transform: uppercase;
-  font-size: 1.25rem;
-  line-height: 1.05;
-  letter-spacing: 0.01em;
+  font-size: 1.22rem;
+  line-height: 1.1;
+  letter-spacing: 0.015em;
 }
 
 .opcion-desc {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--hueso-tenue);
-  line-height: 1.45;
+  line-height: 1.48;
 }
 
 .efectos-linea {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 2px;
+  gap: 6px;
+  margin-top: 3px;
 }
 
 .pastilla {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: var(--radio);
   border: 1px solid var(--linea-clara);
   color: var(--hueso-tenue);
@@ -329,25 +463,28 @@ button {
 
 .pastilla.pos {
   color: var(--verde);
-  border-color: rgba(74, 168, 113, 0.4);
+  border-color: rgba(74, 168, 113, 0.42);
+  background: rgba(74, 168, 113, 0.07);
 }
 
 .pastilla.neg {
   color: var(--rojo-claro);
-  border-color: rgba(224, 43, 29, 0.4);
+  border-color: rgba(224, 43, 29, 0.42);
+  background: rgba(224, 43, 29, 0.07);
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  max-width: 340px;
+  gap: 7px;
+  max-width: 360px;
 }
 
 .campo label {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--hueso-tenue);
 }
@@ -355,13 +492,21 @@ button {
 .campo input {
   background: var(--negro-2);
   border: 1px solid var(--linea);
+  border-bottom-width: 2px;
   border-radius: var(--radio);
   color: var(--hueso);
-  padding: 10px 12px;
+  padding: 11px 14px;
   font-family: var(--titular);
-  font-size: 1.4rem;
+  font-weight: 600;
+  font-size: 1.45rem;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  transition: border-color 0.12s ease;
+}
+
+.campo input::placeholder {
+  color: var(--gris);
+  font-weight: 400;
 }
 
 .campo input:focus {
@@ -372,8 +517,8 @@ button {
 .barra-inferior {
   position: sticky;
   bottom: 0;
-  background: linear-gradient(to top, var(--negro) 62%, transparent);
-  padding: 22px 0 16px;
+  background: linear-gradient(to top, var(--negro) 58%, transparent);
+  padding: 26px 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -389,11 +534,12 @@ button {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(10, 10, 11, 0.93);
-  backdrop-filter: blur(8px);
+  background: rgba(8, 8, 10, 0.94);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--linea);
-  margin: 0 -20px 24px;
-  padding: 12px 20px;
+  box-shadow: 0 1px 0 rgba(224, 43, 29, 0.28);
+  margin: 0 -22px 26px;
+  padding: 12px 22px 14px;
 }
 
 .cabecera-fila {
@@ -413,23 +559,27 @@ button {
 
 .identidad strong {
   font-family: var(--titular);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.01em;
-  font-weight: normal;
+  letter-spacing: 0.015em;
+  font-weight: 600;
 }
 
 .reloj {
   font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  font-size: 0.76rem;
+  letter-spacing: 0.09em;
   color: var(--hueso-tenue);
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .reloj b {
   color: var(--hueso);
   font-weight: normal;
+  font-family: var(--titular);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
 }
 
 /* --------------------------------------------------------------------------
@@ -438,15 +588,15 @@ button {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
-  gap: 8px 16px;
-  margin-top: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+  gap: 10px 18px;
+  margin-top: 12px;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .stat-cabeza {
@@ -457,9 +607,10 @@ button {
 }
 
 .stat-nombre {
-  font-family: var(--mono);
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--hueso-tenue);
 }
@@ -468,19 +619,29 @@ button {
   font-family: var(--mono);
   font-size: 0.76rem;
   color: var(--hueso);
+  font-variant-numeric: tabular-nums;
 }
 
+/* La barra es un medidor impreso: fondo con muescas cada 10 puntos. */
 .stat-barra {
-  height: 4px;
-  background: var(--linea);
-  border-radius: 99px;
+  height: 6px;
+  background-color: var(--negro-4);
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(10% - 1px),
+    rgba(8, 8, 10, 0.9) calc(10% - 1px),
+    rgba(8, 8, 10, 0.9) 10%
+  );
+  border: 1px solid var(--linea);
+  border-radius: 1px;
   overflow: hidden;
 }
 
 .stat-relleno {
   height: 100%;
-  background: var(--hueso);
-  transition: width 0.35s ease;
+  background: var(--hueso-tenue);
+  transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .stat.peligro .stat-relleno {
@@ -493,6 +654,10 @@ button {
 
 .stat.bien .stat-relleno {
   background: var(--verde);
+}
+
+.stat.peligro .stat-nombre {
+  color: var(--rojo-claro);
 }
 
 .stat-delta {
@@ -512,6 +677,7 @@ button {
   font-family: var(--mono);
   font-size: 0.85rem;
   letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
 }
 
 .plata.rojo {
@@ -526,55 +692,87 @@ button {
   background: var(--negro-2);
   border: 1px solid var(--linea);
   border-radius: var(--radio);
-  padding: 26px 26px 24px;
+  padding: 30px 30px 28px;
+  box-shadow: var(--sombra-dura);
+  animation: entrar 0.3s ease;
 }
 
 .tarjeta-evento {
-  border-left: 3px solid var(--rojo);
+  border-left: 4px solid var(--rojo);
+  padding-left: 30px;
 }
 
 .marca-agenda {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gris);
-  margin-bottom: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--linea);
 }
 
 .opciones-lista {
   display: flex;
   flex-direction: column;
   gap: 9px;
-  margin-top: 24px;
+  margin-top: 26px;
+  counter-reset: opcion;
 }
 
 .opcion-boton {
+  position: relative;
   text-align: left;
   background: var(--negro-3);
   border: 1px solid var(--linea);
   border-radius: var(--radio);
-  padding: 14px 16px;
+  padding: 15px 17px 15px 52px;
   display: flex;
   align-items: center;
   gap: 14px;
-  transition: border-color 0.12s ease, background 0.12s ease, transform 0.06s ease;
+  transition: border-color 0.12s ease, background 0.12s ease, box-shadow 0.12s ease,
+    transform 0.08s ease;
   font-family: var(--texto);
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   line-height: 1.4;
+  counter-increment: opcion;
+}
+
+/* Número de opción, como en una papeleta. */
+.opcion-boton::before {
+  content: counter(opcion, decimal-leading-zero);
+  position: absolute;
+  left: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--titular);
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  color: var(--gris);
+  transition: color 0.12s ease;
 }
 
 .opcion-boton:hover:not(:disabled) {
   border-color: var(--hueso-tenue);
-  background: #1e1f23;
+  background: var(--negro-4);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+}
+
+.opcion-boton:hover:not(:disabled)::before {
+  color: var(--rojo);
 }
 
 .opcion-boton:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: translate(1px, 1px);
+  box-shadow: none;
 }
 
 .opcion-boton:disabled {
-  opacity: 0.4;
+  opacity: 0.42;
   cursor: not-allowed;
 }
 
@@ -583,11 +781,12 @@ button {
 }
 
 .riesgo {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 3px 7px;
+  padding: 3px 8px;
   border-radius: var(--radio);
   border: 1px solid;
   white-space: nowrap;
@@ -625,41 +824,68 @@ button {
 /* Resultado */
 
 .resultado {
-  margin-top: 22px;
+  margin-top: 26px;
   border-top: 1px solid var(--linea);
-  padding-top: 20px;
-  animation: aparecer 0.28s ease;
+  padding-top: 22px;
+  animation: aparecer 0.3s ease;
 }
 
 .resultado-elegiste {
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.13em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gris);
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
 .resultado-texto {
-  font-size: 1.08rem;
+  font-size: 1.12rem;
+  line-height: 1.66;
   margin: 0;
+  max-width: 66ch;
+  white-space: pre-line;
+}
+
+/* Primera letra grande: el resultado es lo que el jugador viene a leer. */
+.resultado-texto::first-letter {
+  font-family: var(--display);
+  font-size: 2.6rem;
+  line-height: 0.9;
+  float: left;
+  margin: 6px 10px 0 0;
+  color: var(--rojo);
 }
 
 .titular-prensa {
-  margin-top: 18px;
-  border-top: 2px solid var(--hueso);
-  border-bottom: 2px solid var(--hueso);
-  padding: 10px 0;
-  font-family: var(--titular);
+  margin-top: 22px;
+  border-top: 3px solid var(--hueso);
+  border-bottom: 3px solid var(--hueso);
+  padding: 12px 0;
+  font-family: var(--display);
   text-transform: uppercase;
-  font-size: 1.3rem;
-  line-height: 1.05;
+  font-size: 1.42rem;
+  line-height: 1.06;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
 }
 
 @keyframes aparecer {
   from {
     opacity: 0;
     transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -677,11 +903,11 @@ button {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
 }
 
 .resumen-lineas li {
-  padding-left: 18px;
+  padding-left: 20px;
   position: relative;
 }
 
@@ -692,27 +918,41 @@ button {
   color: var(--rojo);
 }
 
+/* El año que se cierra, a tamaño de tapa. */
+.anio-cierre {
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 11vw, 4.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  margin: 0;
+  font-variant-numeric: lining-nums;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
 .disco-ficha {
   border: 1px solid var(--linea-clara);
+  border-left: 3px solid var(--ambar);
   border-radius: var(--radio);
-  padding: 16px;
-  margin-top: 18px;
+  padding: 18px;
+  margin-top: 20px;
   background: var(--negro-3);
 }
 
 .disco-titulo {
   font-family: var(--titular);
+  font-weight: 600;
   font-size: 1.7rem;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.05;
   margin: 0 0 6px;
 }
 
 .puntaje-disco {
-  font-family: var(--titular);
-  font-size: 2.6rem;
+  font-family: var(--display);
+  font-size: 2.8rem;
   line-height: 1;
-  color: var(--rojo);
+  color: var(--ambar);
+  font-variant-numeric: lining-nums;
 }
 
 /* --------------------------------------------------------------------------
@@ -720,14 +960,16 @@ button {
    -------------------------------------------------------------------------- */
 
 .final {
-  padding: 40px 0;
+  padding: 48px 0;
 }
 
 .final-tono {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.76rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
+  margin: 0;
 }
 
 .tono-tragico {
@@ -747,70 +989,88 @@ button {
 }
 
 .final-titulo {
-  font-family: var(--titular);
-  font-size: clamp(3rem, 11vw, 6rem);
-  line-height: 0.86;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 12vw, 6.6rem);
+  line-height: 0.84;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  margin: 8px 0 20px;
+  margin: 10px 0 20px;
+  text-wrap: balance;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.55);
 }
 
 .final-texto {
-  font-size: 1.12rem;
+  font-size: 1.14rem;
+  line-height: 1.68;
   white-space: pre-line;
-  max-width: 62ch;
+  max-width: 64ch;
 }
 
 .epitafio {
-  border-left: 3px solid var(--rojo);
-  padding: 4px 0 4px 18px;
+  border-left: 4px solid var(--rojo);
+  padding: 6px 0 6px 20px;
   font-style: italic;
-  font-size: 1.12rem;
-  margin: 28px 0;
+  font-size: 1.18rem;
+  margin: 30px 0;
   color: var(--hueso);
+  max-width: 60ch;
 }
 
 .nota-inspiracion {
   border: 1px dashed var(--linea-clara);
   border-radius: var(--radio);
-  padding: 14px 16px;
-  font-size: 0.88rem;
+  padding: 15px 17px;
+  font-size: 0.9rem;
   color: var(--hueso-tenue);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.nota-inspiracion strong {
+  font-family: var(--titular);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.78rem;
+  color: var(--hueso);
 }
 
 .nota-ayuda {
   border: 1px solid rgba(224, 43, 29, 0.4);
-  background: rgba(224, 43, 29, 0.06);
+  background: rgba(224, 43, 29, 0.07);
+  border-left: 3px solid var(--rojo);
   border-radius: var(--radio);
-  padding: 14px 16px;
-  font-size: 0.9rem;
+  padding: 15px 17px;
+  font-size: 0.92rem;
   color: var(--hueso-tenue);
 }
 
 .marcador {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 14px;
-  border-top: 1px solid var(--linea);
+  grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+  gap: 16px;
+  border-top: 3px solid var(--hueso);
   border-bottom: 1px solid var(--linea);
-  padding: 18px 0;
+  padding: 20px 0;
 }
 
 .marcador div span {
   display: block;
-  font-family: var(--mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gris);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .marcador div b {
   font-family: var(--titular);
-  font-size: 1.7rem;
-  font-weight: normal;
+  font-size: 1.75rem;
+  font-weight: 600;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.05;
+  display: block;
 }
 
 /* --------------------------------------------------------------------------
@@ -822,21 +1082,21 @@ button {
   flex-direction: column;
   gap: 0;
   border-left: 1px solid var(--linea);
-  padding-left: 20px;
+  padding-left: 22px;
   margin-left: 6px;
 }
 
 .timeline-item {
   position: relative;
-  padding: 12px 0;
+  padding: 13px 0;
   border-bottom: 1px solid var(--negro-3);
 }
 
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -25px;
-  top: 20px;
+  left: -27px;
+  top: 21px;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -852,6 +1112,7 @@ button {
 }
 .timeline-item.tipo-final::before {
   background: var(--rojo);
+  box-shadow: 0 0 0 3px rgba(224, 43, 29, 0.25);
 }
 .timeline-item.tipo-hito::before {
   background: var(--verde);
@@ -860,27 +1121,31 @@ button {
 .timeline-anio {
   font-family: var(--mono);
   font-size: 0.66rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--gris);
+  font-variant-numeric: tabular-nums;
 }
 
 .timeline-titulo {
   font-family: var(--titular);
+  font-weight: 600;
   text-transform: uppercase;
-  font-size: 1.15rem;
-  line-height: 1.1;
-  margin: 2px 0;
+  font-size: 1.16rem;
+  line-height: 1.14;
+  letter-spacing: 0.01em;
+  margin: 3px 0;
 }
 
 .timeline-item.tipo-titular .timeline-titulo {
   font-family: var(--texto);
+  font-weight: 400;
   text-transform: none;
   font-style: italic;
-  font-size: 1rem;
+  font-size: 1.02rem;
 }
 
 .timeline-detalle {
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   color: var(--hueso-tenue);
   margin: 0;
 }
@@ -892,23 +1157,23 @@ button {
 .tabla {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 .tabla th {
   text-align: left;
-  font-family: var(--mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  font-family: var(--titular);
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gris);
-  border-bottom: 1px solid var(--linea);
-  padding: 8px 10px 8px 0;
-  font-weight: normal;
+  border-bottom: 2px solid var(--linea-clara);
+  padding: 9px 12px 9px 0;
 }
 
 .tabla td {
-  padding: 10px 10px 10px 0;
+  padding: 11px 12px 11px 0;
   border-bottom: 1px solid var(--negro-3);
   vertical-align: top;
 }
@@ -928,22 +1193,26 @@ button {
 .modal-fondo {
   position: fixed;
   inset: 0;
-  background: rgba(4, 4, 5, 0.86);
+  background: rgba(4, 4, 5, 0.88);
+  backdrop-filter: blur(3px);
   z-index: 50;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 40px 16px;
   overflow-y: auto;
+  animation: aparecer 0.2s ease;
 }
 
 .modal {
   background: var(--negro-2);
   border: 1px solid var(--linea-clara);
+  border-top: 4px solid var(--rojo);
   border-radius: var(--radio);
-  max-width: 760px;
+  box-shadow: var(--sombra-dura);
+  max-width: 780px;
   width: 100%;
-  padding: 26px;
+  padding: 28px;
 }
 
 /* --------------------------------------------------------------------------
@@ -962,26 +1231,44 @@ button {
 
 .aviso {
   border: 1px solid var(--linea-clara);
+  border-left: 3px solid var(--linea-clara);
   border-radius: var(--radio);
-  padding: 12px 14px;
-  font-size: 0.88rem;
+  padding: 13px 15px;
+  font-size: 0.9rem;
   color: var(--hueso-tenue);
   background: var(--negro-2);
 }
 
 @media (max-width: 620px) {
   body {
-    font-size: 16px;
+    font-size: 16.5px;
   }
   .tarjeta {
-    padding: 20px 18px;
+    padding: 22px 18px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  }
+  .tarjeta-evento {
+    padding-left: 18px;
   }
   .app {
-    padding: 0 14px 60px;
+    padding: 0 14px 64px;
   }
   .cabecera {
     margin: 0 -14px 20px;
-    padding: 10px 14px;
+    padding: 10px 14px 12px;
+  }
+  .franja span {
+    padding: 0 14px;
+  }
+  .opcion-boton {
+    padding-left: 46px;
+  }
+  .resultado-texto::first-letter {
+    font-size: 2.2rem;
+  }
+  /* En pantalla chica el sello se le encima al título. */
+  .portada-sello {
+    display: none;
   }
 }
 

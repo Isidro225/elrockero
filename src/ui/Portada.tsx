@@ -18,6 +18,11 @@ export function Portada({ hayPartida, onContinuar, onNueva, onSalon }: Props) {
             El
             <em>Rockero</em>
           </h1>
+          <p className="portada-sello">
+            17 años
+            <br />
+            sin plan B
+          </p>
         </div>
 
         <p className="portada-bajada">
